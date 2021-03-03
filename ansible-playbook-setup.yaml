@@ -1,5 +1,5 @@
 ---
-- hosts: master
+- hosts: 192.168.1.194
   become: true
   tasks:
   - name: apt update
