@@ -8,9 +8,9 @@ spec:
     app: case-study-2
   ports:
   - protocol: "TCP"
-    port: 8030
-    targetPort: 8030
-    nodePort: 10443
+    port: 8060
+    targetPort: 8060
+    nodePort: 32000
 
 apiVersion: apps/v1
 kind: Deployment
@@ -32,5 +32,5 @@ spec:
         - name: case-study-2
           image: willstopher/case-study-1:latest
           ports:
-            - containerPort: 8030   
+            - containerPort: 8060 
           

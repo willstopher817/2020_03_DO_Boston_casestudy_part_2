@@ -4,9 +4,35 @@
   become: true
   become_user: root
   tasks:
+  - name: packages install
+    apt:
+      name: "{{packages}}"
+      state: present
+    vars:
+      packages:
+      - software-properties-common
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - git
+      - gnupg-agent 
+  - name: git rm
+    command: rm -rf 2020_03_DO_Boston_casestudy_part_2
+  - name: git clone
+    command: git clone https://github.com/willstopher817/2020_03_DO_Boston_casestudy_part_2.git
   - name: ls
-    command: ls
+    shell: ls
+    register: shellout
+  - debug: var=shellout.stdout
+  - name: cd 2020_03_DO_Boston_casestudy_part_2
+    shell: cd 
+  - name: ls
+    shell: ls
+    register: shellout
+  - debug: var=shellout.stdout
   - name: start
     command: microk8s start
+  - name: start wait
+    command: microk8s status --wait-ready
   - name: run Kubernetes
-    command: microk8s kubectl get all --all-namespaces
+    command: microk8s kubectl apply -f ./2020_03_DO_Boston_casestudy_part_2/Kubernetes.yaml
