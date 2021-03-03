@@ -1,5 +1,5 @@
 ---
-- hosts: vagrant_vm
+- hosts: 192.168.1.195
   become: true
   tasks:
   - name: apt update
