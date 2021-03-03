@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: case-study-2-service-2
+spec:
+  type: NodePort
+  selector:
+    app: case-study-2
+  ports:
+  - protocol: "TCP"
+    port: 8020
+    targetPort: 8020
+    nodePort: 32000
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: case-study-2-deployment
+  labels:
+    app: case-study-2
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: case-study-2
+  template:
+    metadata:         
+      labels:
+        app: case-study-2
+    spec:
+      containers:     
+        - name: case-study-2
+          image: willstopher/case-study-1:latest
+          ports:
+            - containerPort: 8020   
+          

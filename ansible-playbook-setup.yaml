@@ -1,0 +1,40 @@
+---
+- hosts: 127.0.0.1
+  become: true
+  tasks:
+  - name: apt update
+    command: apt update
+  - name: apt install
+    command: apt install software-properties-common
+  - name: conntrack install
+    command: apt install conntrack
+  - name: Add an apt signing key for Kubernetes
+    apt_key:
+      url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+      state: present
+  - name: Adding apt repository for Kubernetes
+    apt_repository:
+      repo: deb https://apt.kubernetes.io/ kubernetes-xenial main
+      state: present
+      filename: kubernetes.list
+  - name: Install tools
+    apt: 
+      name: "{{ packages }}"
+      state: present
+    vars:
+      packages:
+        - kubeadm
+        - kubectl
+  - name: sysctl
+    command: sysctl fs.protected_regular=0
+  - name: run Kubernetes
+    command: kubectl apply -f Kubernetes.yaml
+  - name: make executable
+    command: chmod +x kubernetes-cluster-information.sh
+  - name: set timeout
+    wait_for:
+      timeout: 60 
+  - name: output
+    shell: ./kubernetes-cluster-information.sh > output.txt
+    args:
+      chdir: /home/master/case-study/2020_03_DO_Boston_casestudy_part_2
