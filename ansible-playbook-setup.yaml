@@ -1,5 +1,5 @@
 ---
-- hosts: vagrant
+- hosts: vagrant_vm
   become: true
   tasks:
   - name: apt update
