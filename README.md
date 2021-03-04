@@ -1,3 +1,4 @@
+![](https://github.com/willstopher817/2020_03_DO_Boston_casestudy_part_2/blob/main/screenshots/LucidChart.png)
 # 1. Tools, prerequisites and environment #
 1. Metal
 	1. Vagrant
