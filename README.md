@@ -41,4 +41,6 @@
 3. sudo microk8s kubectl port-forward -n monitoring service/grafana --address 0.0.0.0 3000:3000 &
 
 # 6. Vagrant VM - Stress #
+1. vagrant ssh
+2. top
 1. sudo stress --cpu 2 --timeout 5
